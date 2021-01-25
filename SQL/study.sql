@@ -39,3 +39,7 @@ order by 골뱅이, email;
 select DISTINCT substr(emp_name, 1, 1)성
 from employee
 order by 성;
+
+select email
+from employee
+where email like '___\_%' escape '\';
