@@ -36,3 +36,12 @@ default tablespace users; --데이터가 저장될 영역 system | users
 
 --한번에 부여하기
 grant connect, resource to kh;
+
+
+--chun계정 생성
+create user chun
+identified by chun
+default tablespace users;
+
+--connect, resource 부여
+grant connect, resource to chun;
