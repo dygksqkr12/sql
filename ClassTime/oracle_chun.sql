@@ -118,7 +118,60 @@ group by department_no, class_type
 having class_type = '전공선택' and count(*) >= 10
 order by 3 desc;
 
- 
+
+
+--학번/학생명/담당교수명 조회
+--1. 두테이블의 기준컬럼 파악
+--2. on조건절에 행된지 않는 데이터파악
+select * from tb_student; --coach_professor_no
+select * from tb_professor; --professor_no
+
+--담당교수가, 담당학생이 배정되지 않은 학생이나 교수 제외 inner 579
+--담당교수가 배정되지 않은 학생 포함 left 588 = 579 + 9
+--담당학생이 없는 교수 포함 right 580 = 579 + 1
+
+select count(*)
+from tb_student S right join tb_professor P
+    on S.coach_professor_no = P.professor_no;
+
+--1. 교수배정을 받지 않은 학생 조회 --9
+select count(*)
+from tb_student
+where coach_professor_no is null;
+
+--2. 담당학생이 한명도 없는 교수 --1
+--전체 교수 수 --114
+select count(*)
+from tb_professor;
+--중복 없는 담당교수 수 --113
+select count(distinct coach_professor_no)
+from tb_student;
+
+--2021.01.28
+--1. 학번, 학생명, 학과명 조회
+--학과지정이 안된 학생은 존재하지 않는다.
+select S.student_no,
+        S.student_name,
+        D.department_name
+from tb_student S
+    join tb_department D
+        on S.department_no = D.department_no;
+        
+select count(*)
+from tb_student
+where department_no is null;
+
+--2. 수업번호, 수업명, 교수번호, 교수명 조회
+select *
+from tb_class_professor;
+
+--3. 송박선 학생의 모든 학기 과목별 점수를 조회(학기, 학번, 학생명, 수업명, 점수)
+
+--4. 학생별 전체 평점(소수점이하 첫째자리 버림) 조회 (학번, 학생명, 평점)
+--같은 학생이 여러학기에 걸쳐 같은 과목을 이수한 데이터 있으나, 전체 평점으로 계산함.
+
+--5. 교수번호, 교수명, 담당학생명수 조회
+--단, 5명 이상을 담당하는 교수만 출력
 
 
 
