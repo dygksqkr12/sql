@@ -52,3 +52,7 @@ grant connect, resource to chun;
 select *
 from dba_sys_privs
 where grantee in('CONNECT', 'RESOURCE');
+
+--create view권한 부여
+--resource롤에 포함되지 않는다.
+grant create view to kh;
